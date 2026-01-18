@@ -82,6 +82,9 @@ You can use Nix to run the program:
 nix run github:akirak/ranmaru
 ```
 
+> [!WARNING]
+> The Nix package currently fails to build on macOS.
+
 If you're not using Nix, use Dune to build the program from source.
 
 ## Usage
