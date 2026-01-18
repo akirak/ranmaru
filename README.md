@@ -76,9 +76,11 @@ sequenceDiagram
 *Ranmaru* is written in OCaml 5 and packaged with Nix.
 It should run on UNIX-like systems (e.g., Linux and macOS).
 
-If you're using Nix flakes, you can install the program through:
+You can use Nix to run the program:
 
-- `github:akirak/kagemusha#ranmaru` for `ranmaru`
+``` shell
+nix run github:akirak/ranmaru
+```
 
 If you're not using Nix, use Dune to build the program from source.
 
