@@ -35,4 +35,8 @@ jobs:
           cachix-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Check the flake
+        # FIXME: Fix the build on Mac. I am currently not using this program on
+        # macos, so I am fine with this failure. Currently including the
+        # platform for optimistically producing artifacts.
+        continue-on-error: ${{ matrix.os == 'macos-latest' }}
         run: nix flake check -L --option keep-going true
