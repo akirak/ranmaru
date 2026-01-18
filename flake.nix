@@ -71,7 +71,6 @@
             kcas
             kcas_data
             cmdliner
-            yojson
           ];
           checkInputs = with pkgs.ocamlPackages; [
             alcotest
