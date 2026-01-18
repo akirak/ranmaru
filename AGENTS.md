@@ -24,6 +24,7 @@
 ## Testing Guidelines
 - Tests use Alcotest; add new cases as `test_case` entries in `test/test_main.ml` or new `test_*.ml` files referenced from `test/dune`.
 - Favor fast, deterministic tests; no coverage target is enforced, but new features should include tests.
+- For LSP proxy behavior, prefer integration-style tests that spin up `run_proxy` with UNIX sockets and assert JSON-RPC forwarding, shutdown handling, and exit handling; always clean up socket files and child processes.
 
 ## Commit & Pull Request Guidelines
 - Recent history uses Conventional Commit-style prefixes (e.g., `ci:`, `style:`, `docs(readme):`, `chore(nix):`). Follow the same pattern with a short, imperative summary.

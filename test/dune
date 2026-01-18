@@ -4,5 +4,7 @@
  (libraries
    alcotest
    ranmaru
+   jsonrpc
+   yojson
    cmdliner
    unix))
