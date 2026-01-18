@@ -24,7 +24,7 @@ With *ranmaru*, this will no longer be the case. You can develop
 a long-running multi-role server that accepts connections from multiple clients
 using any of the standard SDKs for developing language servers.
 
-> [!IMPORTANT]
+> [!INFO]
 > In Japanese history, *Mori Ranmaru* (森蘭丸) was a retainer to *Oda Nobunaga*
 > (織田信長). He was a loyal servant to his master, and they died on the same day
 > when they were surrounded by rebels, without allowing the rebels to find their
