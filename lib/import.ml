@@ -66,8 +66,8 @@ module Client_map = struct
   let take_opt {tbl} req_id =
     Kcas_data.Hashtbl.find_opt tbl req_id
     |> Option.map (fun result ->
-           Kcas_data.Hashtbl.remove tbl req_id ;
-           result )
+        Kcas_data.Hashtbl.remove tbl req_id ;
+        result )
 end
 
 module Initializer = struct
