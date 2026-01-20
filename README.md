@@ -92,13 +92,26 @@ If you're not using Nix, use Dune to build the program from source.
 Accept connections from multiple clients and forward to a master server:
 
 ``` shell
-ranmaru --client CLIENT --master SERVER
+ranmaru --client CLIENT_SOCKET --master SERVER_SOCKET
 ```
+
+Or start a master server that supports communication over stdio:
+
+``` shell
+ranmaru --client CLIENT_SOCKET --stdio-master -- COMMAND [ARGS]
+```
+
+When using stdio, ranmaru starts the master process and wires its stdin/stdout
+to the JSON-RPC stream. The master's stderr is forwarded to ranmaru's stderr
+to avoid corrupting the protocol on stdout.
 
 ### Command Line Options
 
 - `--client CLIENT` - Path to the UNIX domain socket that ranmaru listens on. It should not exist.
 - `--master SERVER` - Path to the UNIX domain socket of the master LSP server. It must exist before ranmaru starts.
+- `--stdio-master`: Use stdio to communicate with the master server. The command
+  line must be followed by `-- COMMAND [ARGS]` to specify the master server.
+  This option is mutually exclusive with `--master`.
 
 ### Environment Variables
 
