@@ -5,6 +5,7 @@
 - `ranmaru/` contains the CLI entry point (`main.ml`) that wires up the library.
 - `test/` contains the Alcotest suite (`test_main.ml`), with its dune stanza in `test/dune`.
 - `assets/` stores documentation images used by the README.
+- `docs/adrs/` contains Architecture Decision Records (ADRs).
 - Build metadata lives in `dune-project`, `ranmaru.opam`, and `flake.nix`.
 
 ## Build, Test, and Development Commands
