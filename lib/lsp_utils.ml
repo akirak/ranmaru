@@ -97,24 +97,30 @@ module Reader = struct
             ( parse_packet (Str.string_before body length)
             , Some (Str.string_after body length) ) )
 
-  let rec loop1 flow opt_header opt_string =
+  let rec loop1 ?on_eof flow opt_header opt_string =
     let open Header in
     match get_next_input flow with
-    | None ->
-        Eio.Fiber.yield () ;
-        loop1 flow opt_header opt_string
+    | None -> (
+      match on_eof with
+      | Some handle ->
+          handle () ;
+          loop1 ?on_eof flow opt_header opt_string
+      | None ->
+          Eio.Fiber.yield () ;
+          loop1 ?on_eof flow opt_header opt_string )
     | Some string -> (
       match opt_header with
       | None -> (
         match try_parse_header opt_string string with
         | Partial (header, body) ->
-            Eio.Fiber.yield () ; loop1 flow header body
+            Eio.Fiber.yield () ;
+            loop1 ?on_eof flow header body
         | Complete (packet, rest) -> (packet, rest) )
       | Some {content_length= None} -> (parse_packet string, None)
       | Some {content_length= Some length} when String.length string < length
         ->
           Eio.Fiber.yield () ;
-          loop1 flow opt_header (Some string)
+          loop1 ?on_eof flow opt_header (Some string)
       | Some {content_length= Some length} when String.length string = length
         ->
           (parse_packet string, None)
@@ -125,6 +131,15 @@ module Reader = struct
   let to_stream stream flow =
     let rec loop opt_string =
       let packet, rest = loop1 flow None opt_string in
+      Eio.Stream.add stream packet ;
+      Eio.Fiber.yield () ;
+      loop rest
+    in
+    loop None
+
+  let to_stream_with_eof ~on_eof stream flow =
+    let rec loop opt_string =
+      let packet, rest = loop1 ~on_eof flow None opt_string in
       Eio.Stream.add stream packet ;
       Eio.Fiber.yield () ;
       loop rest
