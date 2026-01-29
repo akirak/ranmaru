@@ -1,6 +1,6 @@
 # ADR 0001: Support master communication over stdio
 
-Status: Draft
+Status: Accepted
 Date: 2025-09-27
 
 ## Context
