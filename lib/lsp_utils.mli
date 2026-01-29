@@ -12,4 +12,10 @@ module Reader : sig
        Jsonrpc.Packet.t Eio.Stream.t
     -> [> Eio.Flow.source_ty] Eio.Resource.t
     -> unit
+
+  val to_stream_with_eof :
+       on_eof:(unit -> unit)
+    -> Jsonrpc.Packet.t Eio.Stream.t
+    -> [> Eio.Flow.source_ty] Eio.Resource.t
+    -> unit
 end
